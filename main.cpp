@@ -101,86 +101,85 @@ int main(int argc, char *argv[]){
         cout << "Você não tem acesso ao perfil ADMINISTRADOR\n";
         exit(0);
       } else {
-          cout << "1 - Cadastrar alunos\n";
-          cout << "2 - Cadastrat instrutor\n";
-          cout << "3 - Listar alunos\n";
-          cout << "4 - Listar instrutores\n";
-          cout << "5 - Excluir alunos\n";
-          cout << "6 - Excluir instrutores\n";
-          cout << "7 - Sair\n";
+          cout << "1 - Listar todos os ônibus cadastrados\n";
+          cout << "2 - Buscar um ônibus por seu nome\n";
+          cout << "3 - Buscar um ônibus por seu bairro (terminal)\n";
+          cout << "4 - Atualizar o bairro (terminal) de um determinado ônibus\n";
+          cout << "5 - Atualizar o itinerário de um determinado ônibus\n";
+          cout << "6 - Excluir um ônibus (buscando pelo nome)\n";
+          cout << "7 - Listar reclamações";
+          cout << "8 - Sair\n";
 
           int opt;
           cin >> opt;
-      }
+      
 
+            /* Cadastrar um novo aluno */
+            if(opt == 1){
+              string nome, treino, end;
+              long long int inst, mat;
+              cout << "\n#####   Cadastrar aluno   #####\n";
+              cout << "Matricula: ";
+              cin >> mat;
+              cout << "Nome: ";
+              cin.ignore();
+              getline(cin, nome);
+              cout << "Treino: ";
+              getline(cin, treino);
+              cout << "Endereço: ";
+              getline(cin, end);
+              cout << "Instrutor: ";
+              cin >> inst;
+              cadastrarAluno(mat, nome, end, treino, inst); //Chama a função em aluno.cpp
+            }
 
+            /* Cadastrar um novo instrutor */
+            else if(opt == 2){
+              string nome, funcao;
+              long long int mat;
+              cout << "\n#####   Cadastrar instrutor   #####\n";
+              cout << "Matricula: ";
+              cin >> mat;
+              cout << "Nome: ";
+              cin.ignore();
+              getline(cin, nome);
+              cout << "Função: ";
+              getline(cin, funcao);
+              cadastrarInstrutor(mat, nome, funcao); //Chama a função em instrutor.cpp
+            } 
 
- 
+            /* Listar todos os alunos cadastrados */
+            else if(opt == 3){
+              listaAluno(); //Chama a função em aluno.cpp
+            }
 
-      /* Cadastrar um novo aluno */
-      if(opt == 1){
-        string nome, treino, end;
-        long long int inst, mat;
-        cout << "\n#####   Cadastrar aluno   #####\n";
-        cout << "Matricula: ";
-        cin >> mat;
-        cout << "Nome: ";
-        cin.ignore();
-        getline(cin, nome);
-        cout << "Treino: ";
-        getline(cin, treino);
-        cout << "Endereço: ";
-        getline(cin, end);
-        cout << "Instrutor: ";
-        cin >> inst;
-        cadastrarAluno(mat, nome, end, treino, inst); //Chama a função em aluno.cpp
-      }
+            /* Listar todos os instrutores cadastrados */
+            else if(opt == 4){
+              listaInstrutor(); //Chama a função em instrutor.cpp
+            }
 
-      /* Cadastrar um novo instrutor */
-      else if(opt == 2){
-        string nome, funcao;
-        long long int mat;
-        cout << "\n#####   Cadastrar instrutor   #####\n";
-        cout << "Matricula: ";
-        cin >> mat;
-        cout << "Nome: ";
-        cin.ignore();
-        getline(cin, nome);
-        cout << "Função: ";
-        getline(cin, funcao);
-        cadastrarInstrutor(mat, nome, funcao); //Chama a função em instrutor.cpp
-      } 
+            /* Apaga um aluno por sua matricula */
+            else if(opt == 5){
+              cout << "Digite a matricula do aluno: ";
+              long long int matricula;
+              cin >> matricula;
+              apagarAluno(matricula); //Chama a função em aluno.cpp
+            }
 
-      /* Listar todos os alunos cadastrados */
-      else if(opt == 3){
-        listaAluno(); //Chama a função em aluno.cpp
-      }
+            /* Apaga um instrutor por sua matricula */
+            else if(opt == 6){
+              cout << "Digite a matricula do Instrutor: ";
+              long long int matricula;
+              cin >> matricula;
+              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
+            }
 
-      /* Listar todos os instrutores cadastrados */
-      else if(opt == 4){
-        listaInstrutor(); //Chama a função em instrutor.cpp
-      }
+            /* Sai do while(true) */
+            else{
+              break;
+            }
 
-      /* Apaga um aluno por sua matricula */
-      else if(opt == 5){
-        cout << "Digite a matricula do aluno: ";
-        long long int matricula;
-        cin >> matricula;
-        apagarAluno(matricula); //Chama a função em aluno.cpp
-      }
-
-      /* Apaga um instrutor por sua matricula */
-      else if(opt == 6){
-        cout << "Digite a matricula do Instrutor: ";
-        long long int matricula;
-        cin >> matricula;
-        apagarInstrutor(matricula); //Chama a função em instrutor.cpp
-      }
-
-      /* Sai do while(true) */
-      else{
-        break;
-      }
+        }
     }
   }
 
