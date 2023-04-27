@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "aluno.hpp" //importa o arquivo de cabeçalho do instrutor
 #include "instrutor.hpp" //importa o arquivo de cabeçalho do instrutor
 
@@ -49,19 +50,34 @@ int main(int argc, char *argv[]){
       
       /* Busca o treino do aluno por sua matricula */
       if(opt == 1){
-        cout << "\n####  Ver treino   ####\n";
-        cout << "Digite sua matricula: ";
-        long long int matricula;
-        cin >> matricula;
-        verTreinoAluno(matricula); //Chama a função em aluno.cpp
+        cout << "\n####  Ônibus Cadastrados   ####\n";
+        // criar função para ler o arquivo onibus cadastrados
       }
 
       /* Busca o instrutor do aluno com a matricula do aluno */
       else if(opt == 2){
-        cout << "Digite sua matricula: ";
-        long long int matricula;
-        cin >> matricula;
-        verInstrutorAluno(matricula); //Chama a função em aluno.cpp
+        cout << "\n####  Buscar ônibus por bairro   ####\n";
+        cout << "Escolha seu bairro: ";
+        // criar um menu com os bairros
+        // criar uma função para dizer que ônibus passa nesse bairro
+        // criar uma função para dizer que ônibus saem desse bairro
+ 
+      }
+
+      else if(opt == 3){
+        cout << "\n####  Ver o itinerário de um ônibus   ####\n";
+        cout << "Escolha uma linha de ônibus: ";
+        // criar um menu com os números dos ônibus e de onde cada um sai
+        // criar uma função para mostrar o itinerário
+ 
+      }
+
+      else if(opt == 4){
+        cout << "\n####  Fazer uma reclamação   ####\n";
+        cout << "Escreva sua reclamação: (a sua reclamação será anônima)";
+        // guardar no arquivo reclamação
+       
+ 
       }
       
       /* Sai do while(true) */
@@ -71,66 +87,35 @@ int main(int argc, char *argv[]){
     } 
   }
 
-  /* Menu de opções para o perfil instrutor */
-  else if(perfil == 2){
-    while(true){
-      cout << "\n#####   Perfil instrutor   #####\n\n";
-      cout << "1 - Listar alunos\n";
-      cout << "2 - ver treino de aluno\n";
-      cout << "3 - alterar treino de aluno\n";
-      cout << "4 - Sair\n";
-
-      int opt;
-      cin >> opt;
-
-
-      /* Lista todos os alunos */
-      if(opt == 1){
-        listaAluno(); //Chama a função em aluno.cpp
-      }
-      
-      /* Busca o treino de um aluno por sua matricula */
-      else if(opt == 2){
-        cout << "\n####  Ver treino   ####\n";
-        cout << "Digite a matricula do aluno: ";
-        long long int matricula;
-        cin >> matricula;
-        verTreinoAluno(matricula); //Chama a função em aluno.cpp
-      }
-
-      /* Altera o  treino do aluno */
-      else if(opt == 3){
-        cout << "Digite a matricula do aluno: ";
-        long long int matricula;
-        string treino;
-        cin >> matricula;
-        cin.ignore();
-        cout << "\nDigite o novo treino: \n";
-        getline(cin, treino);
-        alterarTreinoAluno(matricula, treino); //Chama a função em aluno.cpp
-      }
-      
-      /* Sai do while(true) */
-      else{
-        break;
-      }
-    }
-  }
 
   /* Menu de opções para o perfil admin */
-  else if(perfil == 3){
+  else if(perfil == 2){
     while(true){
-      cout << "\n#####   Perfil administrador   #####\n\n";
-      cout << "1 - Cadastrar alunos\n";
-      cout << "2 - Cadastrat instrutor\n";
-      cout << "3 - Listar alunos\n";
-      cout << "4 - Listar instrutores\n";
-      cout << "5 - Excluir alunos\n";
-      cout << "6 - Excluir instrutores\n";
-      cout << "7 - Sair\n";
 
-      int opt;
-      cin >> opt;
+      cout << "\nPara entrar no perfil GERENTE necessário autenticar seu perfil. \nDigite sua senha de ADMINISTRADOR:\n";
+      string admin = "admin";
+      string senha;
+      cin >> senha;
+
+      if (senha != admin){
+        cout << "Você não tem acesso ao perfil ADMINISTRADOR\n";
+        exit(0);
+      } else {
+          cout << "1 - Cadastrar alunos\n";
+          cout << "2 - Cadastrat instrutor\n";
+          cout << "3 - Listar alunos\n";
+          cout << "4 - Listar instrutores\n";
+          cout << "5 - Excluir alunos\n";
+          cout << "6 - Excluir instrutores\n";
+          cout << "7 - Sair\n";
+
+          int opt;
+          cin >> opt;
+      }
+
+
+
+ 
 
       /* Cadastrar um novo aluno */
       if(opt == 1){
