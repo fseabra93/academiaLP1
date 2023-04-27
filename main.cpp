@@ -5,17 +5,28 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
+
+  //imprimir o título
+
+  string titulo = "### Sistema Gerenciador de Transportes Coletivos ###";
+  int tam_titulo = titulo.length();
+
+  for (int i=0; i<tam_titulo; i++){
+    cout << "#";
+  } cout << endl;
   
-  cout << "\n#############################\n";
-  cout << "### Academia Marombus FIT ###\n";
-  cout << "#############################\n\n";
+  cout << "### Sistema Gerenciador de transportes coletivos ###\n";
+
+  for (int i=0; i<tam_titulo; i++){
+    cout << "#";
+  } cout << endl;
   
   /* Escolhendo o perfil (aluno, instrutor ou admin */
   
   cout << "Escolha seu perfil no sistema:\n";
-  cout << "1 - Aluno\n";
-  cout << "2 - Instrutor\n";
-  cout << "3 - Administrador\n";
+  cout << "1 - Usuário (cliente)\n";
+  cout << "2 - Gerente\n";
+  //cout << "3 - Administrador\n";
   cout << "-> :";
   int perfil; 
   cin >> perfil;
@@ -28,10 +39,11 @@ int main(int argc, char *argv[]){
   /* Menu de opções para o perfil Aluno */
   if(perfil == 1){
     while(true){
-      cout << "\n#####   Perfil aluno   #####\n\n";
-      cout << "1 - Ver treino\n";
-      cout << "2 - Consultar instrutor\n";
-      cout << "3 - Sair\n"; 
+      cout << "\n#####   Usuário (cliente)   #####\n\n";
+      cout << "1 - Ver ônibus cadastrados (nome da linha e bairro)\n";
+      cout << "2 - Buscar um ônibus por seu bairro (terminal)\n";
+      cout << "3 - Ver o itinerário de um ônibus (busque pelo nome da linha)\n";
+      cout << "4 - Fazer uma reclamação (a reclamação será anônima)\n";
       int opt;
       cin >> opt;
       
