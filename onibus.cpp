@@ -88,12 +88,24 @@ void listaOnibus(){
 }
 
 //Busca um determinado aluno por sua matricula
-void buscaOnibus(int num_linha){
-  cout << "\n####  Buscando Aluno   ####\n";
+void buscaOnibusLinha(int num_linha){
+  cout << "\n####  Buscando Ônibus   ####\n";
   for(auto i : onibus){
     if(i.first == num_linha){
       cout << "\nÔnibus encontrado!\n";
       cout << "\nO terminal desta linha é o " << i.second.terminal << endl;
+      cout << "\nO itinerário desta linha é o " << i.second.itiner << endl;
+
+    }   
+  }
+}
+
+void buscaOnibusLBairro(string bairro){
+  cout << "\n####  Buscando Ônibus   ####\n";
+  for(auto i : onibus){
+    if(i.second.terminal == bairro){
+      cout << "\nÔnibus encontrado!\n";
+      cout << "\nO número desta linha é o " << i.first << endl;
       cout << "\nO itinerário desta linha é o " << i.second.itiner << endl;
 
     }   
@@ -125,12 +137,13 @@ void verInstrutorAluno(long long int matricula){
 }
 
 //Altera o treino do aluno 
-void alterarTreinoAluno(long long int matricula, string novoTreino){
-  cout << "\n####  Buscando Aluno   ####\n";
-  for(auto i : alunos){
-    if(i.first == matricula){
-      alunos[matricula].treino = novoTreino;
-      cout << "Treino alterado com sucesso" << endl;
+void alterarTerminal(int linha, string novo){
+  //cout << "\n####  Alterando terminal da linha "<< linha << "   ####\n";
+  for(auto i : onibus){
+    if(i.first == linha){
+      
+      onibus[linha].terminal = novo;
+      cout << "Terminal da linha "<< linha << " alterado com sucesso" << endl;
     }   
   }
 }

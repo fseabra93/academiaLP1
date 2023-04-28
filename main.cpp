@@ -111,11 +111,11 @@ int main(int argc, char *argv[]){
       } else {
           cout << "1 - Cadastrar linhas e ônibus\n";
           cout << "2 - Listar todos os ônibus cadastrados\n";
-          cout << "3 - Buscar um ônibus por seu nome\n";
+          cout << "3 - Buscar um ônibus por seu nome(número da linha)\n";
           cout << "4 - Buscar um ônibus por seu bairro (terminal)\n";
           cout << "5 - Atualizar o bairro (terminal) de um determinado ônibus\n";
           cout << "6 - Atualizar o itinerário de um determinado ônibus\n";
-          cout << "7 - Excluir um ônibus (buscando pelo nome)\n";
+          cout << "7 - Excluir um ônibus (buscando pelo número da linha)\n";
           cout << "8 - Listar reclamações";
           cout << "9 - Sair\n";
 
@@ -148,24 +148,45 @@ int main(int argc, char *argv[]){
               int linha;
               cout << "Digite o número da linha: ";
               cin >> linha;
-              buscaOnibus(linha);
+              buscaOnibusLinha(linha);
             }
 //////////////////////////////////////////////////////////////////////////////////////////////
             /* Listar todos os instrutores cadastrados */
             else if(opt == 4){
-              listaInstrutor(); //Chama a função em instrutor.cpp
+              string bairro;
+              cout << "Digite o bairro (terminal): ";
+              cin >> bairro;
+              buscaOnibusBairro(bairro);
             }
 
-            /* Apaga um aluno por sua matricula */
+            /* Atualizar o bairro (terminal) de um determinado ônibus */
             else if(opt == 5){
-              cout << "Digite a matricula do aluno: ";
+              cout << "Digite a número da linha que deseja atualizar o terminal: ";
+              int num_linha;
+              cin >> num_linha;
+              cout << "Digite o novo Terminal para a linha " << num_linha <<": ";
+              string novo_terminal;
+              cin >> novo_terminal;
+              alterarTerminal(num_linha, novo_terminal); //Chama a função em aluno.cpp
+            }
+
+            /* Atualizar o itinerário de um determinado ônibus */
+            else if(opt == 6){
+              cout << "Digite a matricula do Instrutor: ";
               long long int matricula;
               cin >> matricula;
-              apagarAluno(matricula); //Chama a função em aluno.cpp
+              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
+            }
+            /*Excluir um ônibus (buscando pelo número da linha)*/
+            else if(opt == 7){
+              cout << "Digite a matricula do Instrutor: ";
+              long long int matricula;
+              cin >> matricula;
+              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
             }
 
-            /* Apaga um instrutor por sua matricula */
-            else if(opt == 6){
+            /*Listar reclamações*/
+            else if(opt == 8){
               cout << "Digite a matricula do Instrutor: ";
               long long int matricula;
               cin >> matricula;
