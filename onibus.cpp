@@ -2,33 +2,32 @@
 #include <map>
 #include <vector>
 #include <fstream>
-#include "instrutor.hpp"
+#include "gerente.hpp"
 
 using namespace std;
 
 //Cria a scruct para armazenar um aluno
-struct Aluno{
-  string nome;
-  string endereco;
-  string treino;
-  long long int instrutor;
+struct Onibus{
+  //int num_linha;
+  string terminal;
+  string itiner;
 };
 
 //Cria o map para armazenar os alunos Chave (matricula) e valor (struct Aluno)
-map<long long int, Aluno> alunos;
+map<int, Onibus> onibus;
 
 
 //Lê o arquivo assim que o programa é iniciado para salvar no map
-void carregarValoresAlunos(){
+void carregarValoresOnibus(){
   fstream arquivoCriar;
 
   //cria o arquivo alunos.txt caso não exista
-  arquivoCriar.open("alunos.txt", ios::out | ios::app);
+  arquivoCriar.open("onibus.txt", ios::out | ios::app);
   arquivoCriar.close();
   
   //Abre o arquivo alunos.txt para leitura
   fstream arquivoler;
-  arquivoler.open("alunos.txt", ios::in);
+  arquivoler.open("onibus.txt", ios::in);
   string linha;
   vector<string> vetor;
   
@@ -40,27 +39,24 @@ void carregarValoresAlunos(){
   
 
   //Transfere as linhas do vector para dentro do map
-  for(int i = 0; i< vetor.size(); i+=5){
+  for(int i = 0; i< vetor.size(); i+=3){
     //stoll converte uma string para um inteiro longo
-    long long int matricula = stoll(vetor[i]);
-    alunos[matricula].nome = vetor[i+1];
-    alunos[matricula].endereco = vetor[i+2];
-    alunos[matricula].treino = vetor[i+3];
-    alunos[matricula].instrutor = stoll(vetor[i+4]);
+    int num_linha = stoll(vetor[i]);
+    onibus[num_linha].terminal = vetor[i+1];
+    onibus[num_linha].itiner = vetor[i+2];
   }
 }
 
 //Faz o cadastro do aluno com valores recebidos dos parametros
-void cadastrarAluno(long long int matricula, string nome, string endereco, string treino, long long int instrutor){
+void cadastrarOnibus(int num_linha, string terminal, string itiner){
   fstream arquivo;
-  arquivo.open("alunos.txt", ios::out | ios::app);
-  arquivo << matricula << endl;
-  alunos[matricula].nome = nome;
-  arquivo << nome << endl;
-  alunos[matricula].endereco = endereco;
-  arquivo << endereco << endl;
-  alunos[matricula].treino = treino;
-  arquivo << treino << endl;
+  arquivo.open("onibus.txt", ios::out | ios::app);
+  arquivo << num_linha << endl;
+  onibus[num_linha].terminal = terminal;
+  arquivo << terminal << endl;
+  onibus[matricula].itiner = itiner;
+  arquivo << itiner << endl;
+
 
 
   //Verifica se o instrutor existe, se não preenche o campo com zero
@@ -80,24 +76,26 @@ void cadastrarAluno(long long int matricula, string nome, string endereco, strin
 }
 
 //Faz a listagem dos alunos
-void listaAluno(){
-  cout << "\n####  Lista de Alunos   ####\n\n";
+void listaOnibus(){
+  cout << "\n####  Lista de Ônibus Cadastrados   ####\n\n";
   cout << "*************************\n";
-  for(auto i : alunos){
-    cout << "Matricula: "<< i.first << endl;
-    cout << "Nome: "<< i.second.nome << endl;
-    cout << "Treino: "<< i.second.treino << endl;
-    cout << "Instrutor: "<< i.second.instrutor << endl;
+  for(auto i : onibus){
+    cout << "Número da linha: "<< i.first << endl;
+    cout << "Terminal: "<< i.second.terminal << endl;
+    cout << "Itinerário: "<< i.second.itiner << endl;
     cout << "*************************\n";
 }
 }
 
 //Busca um determinado aluno por sua matricula
-void buscaAluno(long long int mat){
+void buscaOnibus(int num_linha){
   cout << "\n####  Buscando Aluno   ####\n";
-  for(auto i : alunos){
-    if(i.first == mat){
-      cout << "\nAluno encontrado!\n";
+  for(auto i : onibus){
+    if(i.first == num_linha){
+      cout << "\nÔnibus encontrado!\n";
+      cout << "\nO terminal desta linha é o " << i.second.terminal << endl;
+      cout << "\nO itinerário desta linha é o " << i.second.itiner << endl;
+
     }   
   }
 }

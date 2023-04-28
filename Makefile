@@ -1,6 +1,6 @@
 all: 
-	g++ -c main.cpp aluno.cpp instrutor.cpp
-	g++ -o programa01 main.o aluno.o instrutor.o
+	g++ -c main.cpp onibus.cpp gerente.cpp
+	g++ -o programa01 main.o onibus.o gerente.o
 
 rodar:
 	./programa01

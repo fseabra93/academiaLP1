@@ -12,13 +12,13 @@ struct Instrutor{
 
 map<long long int, Instrutor> instrutores;
 
-void carregarValoresInstrutor(){
+void carregarValoresGerente(){
   fstream arquivoCriar;
-  arquivoCriar.open("instrutor.txt", ios::out | ios::app);
+  arquivoCriar.open("gerente.txt", ios::out | ios::app);
   arquivoCriar.close();
   
   fstream arquivoler;
-  arquivoler.open("instrutor.txt", ios::in);
+  arquivoler.open("gerente.txt", ios::in);
   string linha;
   vector<string> vetor;
   
@@ -38,7 +38,7 @@ void carregarValoresInstrutor(){
 /* Cadastrar um novo instrutor */
 void cadastrarInstrutor(long long int matricula, string nome, string funcao){
   fstream arquivo;
-  arquivo.open("instrutor.txt", ios::out | ios::app); //Abre um arquivo (escrita)
+  arquivo.open("gerente.txt", ios::out | ios::app); //Abre um arquivo (escrita)
   arquivo << matricula << endl;
   instrutores[matricula].nome = nome;
   arquivo << nome << endl;
@@ -87,7 +87,7 @@ bool existeInstrutor(long long int mat){
 
 void atualizarArquivoInstrutor(){
   fstream arquivo;
-  arquivo.open("instrutores.txt", ios::out);
+  arquivo.open("gerente.txt", ios::out);
   
   for(auto i : instrutores){
     arquivo << i.first << endl;

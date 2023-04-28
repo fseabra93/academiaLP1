@@ -1,7 +1,9 @@
 #include <iostream>
 #include <cstdlib>
-#include "aluno.hpp" //importa o arquivo de cabeçalho do instrutor
-#include "instrutor.hpp" //importa o arquivo de cabeçalho do instrutor
+#include <unistd.h>
+#include "onibus.hpp" //importa o arquivo de cabeçalho do onibus
+#include "perfil.cpp" 
+#include "gerente.hpp" //importa o arquivo de cabeçalho do gerente
 
 using namespace std;
 
@@ -20,22 +22,16 @@ int main(int argc, char *argv[]){
 
   for (int i=0; i<tam_titulo; i++){
     cout << "#";
-  } cout << endl;
+  } cout << endl << endl;
   
-  /* Escolhendo o perfil (aluno, instrutor ou admin */
+  /* Escolhendo o perfil (cliente, gerente) */
   
-  cout << "Escolha seu perfil no sistema:\n";
-  cout << "1 - Usuário (cliente)\n";
-  cout << "2 - Gerente\n";
-  //cout << "3 - Administrador\n";
-  cout << "-> :";
-  int perfil; 
-  cin >> perfil;
+  int perfil = perf();
   
   /* Lê o arquivo aluno.txt e carrega os dados no sistema */
-  carregarValoresAlunos();
+  carregarValoresOnibus();
   /* Lê o arquivo instrutor.txt e carrega os dados no sistema */
-  carregarValoresInstrutor();
+  carregarValoresGerente();
   
   /* Menu de opções para o perfil Aluno */
   if(perfil == 1){
@@ -45,6 +41,7 @@ int main(int argc, char *argv[]){
       cout << "2 - Buscar um ônibus por seu bairro (terminal)\n";
       cout << "3 - Ver o itinerário de um ônibus (busque pelo nome da linha)\n";
       cout << "4 - Fazer uma reclamação (a reclamação será anônima)\n";
+      cout << "5 - Para sair\n";
       int opt;
       cin >> opt;
       
@@ -79,6 +76,14 @@ int main(int argc, char *argv[]){
        
  
       }
+
+
+      else if(opt == 5){
+        cout << "\n##  Obrigado por utilizar o Sistema Gerenciador de Transportes Coletivos   ##\n";
+        sleep(2);
+        exit(0);
+ 
+      }
       
       /* Sai do while(true) */
       else{
@@ -99,16 +104,20 @@ int main(int argc, char *argv[]){
 
       if (senha != admin){
         cout << "Você não tem acesso ao perfil ADMINISTRADOR\n";
+        char tecla;
+        cout << "Digite qualquer tecla para fechar o programa.\n";
+        cin >> tecla;
         exit(0);
       } else {
-          cout << "1 - Listar todos os ônibus cadastrados\n";
-          cout << "2 - Buscar um ônibus por seu nome\n";
-          cout << "3 - Buscar um ônibus por seu bairro (terminal)\n";
-          cout << "4 - Atualizar o bairro (terminal) de um determinado ônibus\n";
-          cout << "5 - Atualizar o itinerário de um determinado ônibus\n";
-          cout << "6 - Excluir um ônibus (buscando pelo nome)\n";
-          cout << "7 - Listar reclamações";
-          cout << "8 - Sair\n";
+          cout << "1 - Cadastrar linhas e ônibus\n";
+          cout << "2 - Listar todos os ônibus cadastrados\n";
+          cout << "3 - Buscar um ônibus por seu nome\n";
+          cout << "4 - Buscar um ônibus por seu bairro (terminal)\n";
+          cout << "5 - Atualizar o bairro (terminal) de um determinado ônibus\n";
+          cout << "6 - Atualizar o itinerário de um determinado ônibus\n";
+          cout << "7 - Excluir um ônibus (buscando pelo nome)\n";
+          cout << "8 - Listar reclamações";
+          cout << "9 - Sair\n";
 
           int opt;
           cin >> opt;
@@ -116,43 +125,32 @@ int main(int argc, char *argv[]){
 
             /* Cadastrar um novo aluno */
             if(opt == 1){
-              string nome, treino, end;
-              long long int inst, mat;
-              cout << "\n#####   Cadastrar aluno   #####\n";
-              cout << "Matricula: ";
-              cin >> mat;
-              cout << "Nome: ";
+              string terminal, itiner;
+              int num_linha;
+              cout << "\n#####   Cadastrar linhas e ônibus   #####\n";
+              cout << "Número da linha: ";
+              cin >> num_linha;
+              cout << "Terminal: ";
               cin.ignore();
-              getline(cin, nome);
-              cout << "Treino: ";
-              getline(cin, treino);
-              cout << "Endereço: ";
-              getline(cin, end);
-              cout << "Instrutor: ";
-              cin >> inst;
-              cadastrarAluno(mat, nome, end, treino, inst); //Chama a função em aluno.cpp
+              getline(cin, terminal);
+              cout << "Itinerário: ";
+              getline(cin, itiner);
+              cadastrarOnibus(num_linha, terminal, itiner); //Chama a função em aluno.cpp
             }
 
             /* Cadastrar um novo instrutor */
             else if(opt == 2){
-              string nome, funcao;
-              long long int mat;
-              cout << "\n#####   Cadastrar instrutor   #####\n";
-              cout << "Matricula: ";
-              cin >> mat;
-              cout << "Nome: ";
-              cin.ignore();
-              getline(cin, nome);
-              cout << "Função: ";
-              getline(cin, funcao);
-              cadastrarInstrutor(mat, nome, funcao); //Chama a função em instrutor.cpp
+              listaOnibus(); //Chama a função em aluno.cpp
             } 
 
             /* Listar todos os alunos cadastrados */
             else if(opt == 3){
-              listaAluno(); //Chama a função em aluno.cpp
+              int linha;
+              cout << "Digite o número da linha: ";
+              cin >> linha;
+              buscaOnibus(linha);
             }
-
+//////////////////////////////////////////////////////////////////////////////////////////////
             /* Listar todos os instrutores cadastrados */
             else if(opt == 4){
               listaInstrutor(); //Chama a função em instrutor.cpp

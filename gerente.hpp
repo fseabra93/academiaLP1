@@ -4,10 +4,11 @@
 void cadastrarInstrutor(long long int matricula, std::string nome, std::string funcao);
 void listaInstrutor();
 void buscaInstrutor(long long int mat);
-void carregarValoresInstrutor();
+void carregarValoresGerente();
 bool existeInstrutor(long long int mat);
 void apagarInstrutor(long long int matricula);
 void atualizarArquivoInstrutor();
+int perf();
 
 
 #endif
