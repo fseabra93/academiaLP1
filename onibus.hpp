@@ -2,14 +2,17 @@
 #define _ALUNO_HPP
 
   void cadastrarOnibus(int num_linha, string terminal, string itiner);
-  void carregarValoresOnibus();
+  void carregarValores();
   void listaOnibus();
   void buscaOnibusLinha(int num_linha);
   void buscaOnibusBairro(string bairro);
-  void verTreinoAluno(long long int matricula);
-  void verInstrutorAluno(long long int matricula);
-  void alterarTreinoAluno(long long int matricula, std::string novoTreino);
-  void apagarAluno(long long int matricula);
-  void atualizarArquivoAluno();
+  void apagarOnibus(int linha);
+  void atualizarArquivo_onibus();
+  void listaReclamacoes();
+  void cadastrarReclamacao();
+  void listaOnibus();
+  void alterarTerminal(int linha, string novo);
+  void alterarItinerario(int linha, string novo);
+  int perf();
 
 #endif

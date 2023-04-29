@@ -1,6 +1,6 @@
 all: 
-	g++ -c main.cpp onibus.cpp gerente.cpp
-	g++ -o programa01 main.o onibus.o gerente.o
+	g++ -c main.cpp onibus.cpp
+	g++ -o programa01 main.o onibus.o
 
 rodar:
 	./programa01

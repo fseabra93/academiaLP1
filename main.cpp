@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include "onibus.hpp" //importa o arquivo de cabeçalho do onibus
-#include "perfil.cpp" 
-#include "gerente.hpp" //importa o arquivo de cabeçalho do gerente
+
+
 
 using namespace std;
 
@@ -25,15 +25,12 @@ int main(int argc, char *argv[]){
   } cout << endl << endl;
   
   /* Escolhendo o perfil (cliente, gerente) */
-  
   int perfil = perf();
   
-  /* Lê o arquivo aluno.txt e carrega os dados no sistema */
-  carregarValoresOnibus();
-  /* Lê o arquivo instrutor.txt e carrega os dados no sistema */
-  carregarValoresGerente();
+  /* Lê os arquivos onibus.txt e reclamacoes.txt e carrega os dados no sistema */
+  carregarValores();
   
-  /* Menu de opções para o perfil Aluno */
+  /* Menu de opções para o perfil cliente */
   if(perfil == 1){
     while(true){
       cout << "\n#####   Usuário (cliente)   #####\n\n";
@@ -45,35 +42,36 @@ int main(int argc, char *argv[]){
       int opt;
       cin >> opt;
       
-      /* Busca o treino do aluno por sua matricula */
+      /* Lista ônibus cadastrados */
       if(opt == 1){
         cout << "\n####  Ônibus Cadastrados   ####\n";
-        // criar função para ler o arquivo onibus cadastrados
+        listaOnibus();
       }
 
-      /* Busca o instrutor do aluno com a matricula do aluno */
+      /* Busca ônibus por bairro */
       else if(opt == 2){
         cout << "\n####  Buscar ônibus por bairro   ####\n";
-        cout << "Escolha seu bairro: ";
-        // criar um menu com os bairros
-        // criar uma função para dizer que ônibus passa nesse bairro
-        // criar uma função para dizer que ônibus saem desse bairro
+        string bairro;
+        cout << "Digite o bairro (terminal): ";
+        getline(cin, bairro);
+        buscaOnibusBairro(bairro);
  
       }
-
+        /* Busca ônibus por linha e mostra o itinerário */
       else if(opt == 3){
         cout << "\n####  Ver o itinerário de um ônibus   ####\n";
         cout << "Escolha uma linha de ônibus: ";
-        // criar um menu com os números dos ônibus e de onde cada um sai
-        // criar uma função para mostrar o itinerário
+        int linha;
+        cin >> linha;
+        buscaOnibusLinha(linha);
  
       }
 
+      /*Cadastra uma reclamação anônima*/
       else if(opt == 4){
         cout << "\n####  Fazer uma reclamação   ####\n";
         cout << "Escreva sua reclamação: (a sua reclamação será anônima)";
-        // guardar no arquivo reclamação
-       
+        cadastrarReclamacao();       
  
       }
 
@@ -88,6 +86,7 @@ int main(int argc, char *argv[]){
       /* Sai do while(true) */
       else{
         break;
+
       }
     } 
   }
@@ -123,7 +122,7 @@ int main(int argc, char *argv[]){
           cin >> opt;
       
 
-            /* Cadastrar um novo aluno */
+            /* Cadastrar linhas de onibus */
             if(opt == 1){
               string terminal, itiner;
               int num_linha;
@@ -135,66 +134,73 @@ int main(int argc, char *argv[]){
               getline(cin, terminal);
               cout << "Itinerário: ";
               getline(cin, itiner);
-              cadastrarOnibus(num_linha, terminal, itiner); //Chama a função em aluno.cpp
+              cadastrarOnibus(num_linha, terminal, itiner); //Chama a função em onibus.cpp
             }
 
-            /* Cadastrar um novo instrutor */
+            /* Lista as linhas, terminais e itinerários */
             else if(opt == 2){
-              listaOnibus(); //Chama a função em aluno.cpp
+              listaOnibus(); //Chama a função em onibus.cpp
             } 
 
-            /* Listar todos os alunos cadastrados */
+            /* Busca ônibus pela linha*/
             else if(opt == 3){
               int linha;
               cout << "Digite o número da linha: ";
               cin >> linha;
               buscaOnibusLinha(linha);
             }
-//////////////////////////////////////////////////////////////////////////////////////////////
-            /* Listar todos os instrutores cadastrados */
+
+            /* Busca ônibus pelo terminal*/
             else if(opt == 4){
               string bairro;
               cout << "Digite o bairro (terminal): ";
-              cin >> bairro;
+              getline(cin, bairro);
               buscaOnibusBairro(bairro);
             }
 
             /* Atualizar o bairro (terminal) de um determinado ônibus */
             else if(opt == 5){
-              cout << "Digite a número da linha que deseja atualizar o terminal: ";
+              cout << "Digite o número da linha que deseja atualizar o terminal: ";
               int num_linha;
               cin >> num_linha;
               cout << "Digite o novo Terminal para a linha " << num_linha <<": ";
               string novo_terminal;
-              cin >> novo_terminal;
-              alterarTerminal(num_linha, novo_terminal); //Chama a função em aluno.cpp
+              getline(cin, novo_terminal);
+              alterarTerminal(num_linha, novo_terminal); 
+              atualizarArquivo_onibus();
             }
 
             /* Atualizar o itinerário de um determinado ônibus */
             else if(opt == 6){
-              cout << "Digite a matricula do Instrutor: ";
-              long long int matricula;
-              cin >> matricula;
-              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
+              cout << "Digite a número da linha que deseja atualizar o itinerário: ";
+              int num_linha;
+              cin >> num_linha;
+              cout << "Digite o novo Itinerário para a linha " << num_linha <<": ";
+              string novo_itiner;
+              getline(cin, novo_itiner);
+              alterarTerminal(num_linha, novo_itiner); 
+              atualizarArquivo_onibus();
             }
             /*Excluir um ônibus (buscando pelo número da linha)*/
             else if(opt == 7){
-              cout << "Digite a matricula do Instrutor: ";
-              long long int matricula;
-              cin >> matricula;
-              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
+              cout << "Digite a número da linha que deseja excluir: ";
+              int num_linha;
+              cin >> num_linha;
+              apagarOnibus(num_linha); 
+              
             }
 
             /*Listar reclamações*/
             else if(opt == 8){
-              cout << "Digite a matricula do Instrutor: ";
-              long long int matricula;
-              cin >> matricula;
-              apagarInstrutor(matricula); //Chama a função em instrutor.cpp
+              listaReclamacoes();
             }
 
             /* Sai do while(true) */
             else{
+              cout << "\n##  Obrigado por utilizar o Sistema Gerenciador de Transportes Coletivos   ##\n";
+              sleep(2);
+              exit(0);
+
               break;
             }
 
